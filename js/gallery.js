@@ -68,12 +68,30 @@ const gallery = document.querySelector(".gallery");
 const fragment = document.createDocumentFragment();
 images.forEach((image) => {
   const li = document.createElement("li");
-  const img = document.createElement("img");
-  img.src = image.preview;
+  li.classList.add("gallery-item");
+  const a = document.createElement("a");
+  a.classList.add("gallery-link");
+  a.href = image.original;
 
+  const img = document.createElement("img");
+  img.classList.add("gallery-image");
+  img.src = image.preview;
+  img.setAttribute("data-source", image.original);
   img.alt = image.description;
 
   li.appendChild(img);
   fragment.appendChild(li);
 });
 gallery.appendChild(fragment);
+
+gallery.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (e.target.nodeName === "IMG") {
+    const largeImageSrc = e.target.dataset.source;
+    const lightbox = basicLightbox.create(
+      `<img src="${largeImageSrc}" alt="Large Image">`
+    );
+    lightbox.show();
+  }
+});
