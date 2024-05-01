@@ -92,6 +92,7 @@ gallery.addEventListener("click", (e) => {
     const lightbox = basicLightbox.create(
       `<img src="${largeImageSrc}" alt="Large Image">`
     );
+    console.log(largeImageSrc);
     lightbox.show();
   }
 });
